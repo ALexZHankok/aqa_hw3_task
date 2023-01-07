@@ -13,7 +13,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class OrdercardTest {
+public class OrderCardNegativeTest {
     private WebDriver driver;
 
     @BeforeAll
@@ -22,12 +22,13 @@ public class OrdercardTest {
     }
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--no-sandbox");
         options.addArguments("--headless");
         driver = new ChromeDriver(options);
+        driver.get("http://localhost:9999");
     }
 
     @AfterEach
@@ -37,56 +38,7 @@ public class OrdercardTest {
     }
 
     @Test
-    void shouldTestV1() {
-        driver.get("http://localhost:9999");
-        driver.findElement(By.cssSelector("[data-test-id = name] input")).sendKeys("Алексей Зверев");
-        driver.findElement(By.cssSelector("[data-test-id = phone] input")).sendKeys("+79119294414");
-        driver.findElement(By.cssSelector("[data-test-id = agreement]")).click();
-        driver.findElement(By.className("button")).click();
-        String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
-        String actual = driver.findElement(By.cssSelector("[data-test-id = order-success]")).getText().trim();
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void shouldTestV2() {
-        driver.get("http://localhost:9999");
-        driver.findElement(By.cssSelector("[data-test-id = name] input")).sendKeys("Алексей-Зверев");
-        driver.findElement(By.cssSelector("[data-test-id = phone] input")).sendKeys("+79119294414");
-        driver.findElement(By.cssSelector("[data-test-id = agreement]")).click();
-        driver.findElement(By.className("button")).click();
-        String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
-        String actual = driver.findElement(By.cssSelector("[data-test-id = order-success]")).getText().trim();
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void shouldTestV3() {
-        driver.get("http://localhost:9999");
-        driver.findElement(By.cssSelector("[data-test-id = name] input")).sendKeys("Алексей Анатольевич Зверев");
-        driver.findElement(By.cssSelector("[data-test-id = phone] input")).sendKeys("+79119294414");
-        driver.findElement(By.cssSelector("[data-test-id = agreement]")).click();
-        driver.findElement(By.className("button")).click();
-        String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
-        String actual = driver.findElement(By.cssSelector("[data-test-id = order-success]")).getText().trim();
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void shouldTestV4() {
-        driver.get("http://localhost:9999");
-        driver.findElement(By.cssSelector("[data-test-id = name] input")).sendKeys("алексей зверев");
-        driver.findElement(By.cssSelector("[data-test-id = phone] input")).sendKeys("+79119294414");
-        driver.findElement(By.cssSelector("[data-test-id = agreement]")).click();
-        driver.findElement(By.className("button")).click();
-        String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
-        String actual = driver.findElement(By.cssSelector("[data-test-id = order-success]")).getText().trim();
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void shouldTestV5() {
-        driver.get("http://localhost:9999");
+    public void shouldTestV1() {
         driver.findElement(By.cssSelector("[data-test-id = name] input")).sendKeys("Aleksei Zverev");
         driver.findElement(By.cssSelector("[data-test-id = phone] input")).sendKeys("+79119294414");
         driver.findElement(By.cssSelector("[data-test-id = agreement]")).click();
@@ -97,8 +49,7 @@ public class OrdercardTest {
     }
 
     @Test
-    void shouldTestV6() {
-        driver.get("http://localhost:9999");
+    public void shouldTestV2() {
         driver.findElement(By.cssSelector("[data-test-id = name] input")).clear();
         driver.findElement(By.cssSelector("[data-test-id = phone] input")).sendKeys("+79119294414");
         driver.findElement(By.cssSelector("[data-test-id = agreement]")).click();
@@ -109,8 +60,7 @@ public class OrdercardTest {
     }
 
     @Test
-    void shouldTestV7() {
-        driver.get("http://localhost:9999");
+    public void shouldTestV3() {
         driver.findElement(By.cssSelector("[data-test-id = name] input")).sendKeys("Алексей Зверев");
         driver.findElement(By.cssSelector("[data-test-id = phone] input")).sendKeys("+791119294414");
         driver.findElement(By.cssSelector("[data-test-id = agreement]")).click();
@@ -121,8 +71,7 @@ public class OrdercardTest {
     }
 
     @Test
-    void shouldTestV8() {
-        driver.get("http://localhost:9999");
+    public void shouldTestV4() {
         driver.findElement(By.cssSelector("[data-test-id = name] input")).sendKeys("Алексей Зверев");
         driver.findElement(By.cssSelector("[data-test-id = phone] input")).clear();
         driver.findElement(By.cssSelector("[data-test-id = agreement]")).click();
@@ -133,13 +82,11 @@ public class OrdercardTest {
     }
 
     @Test
-    void shouldTestV9() {
-        driver.get("http://localhost:9999");
+    public void shouldTestV5() {
         driver.findElement(By.cssSelector("[data-test-id = name] input")).sendKeys("Алексей Зверев");
         driver.findElement(By.cssSelector("[data-test-id = phone] input")).sendKeys("+79119294414");
         driver.findElement(By.className("button")).click();
-        boolean actual = driver.findElement(By.cssSelector("[data-test-id = agreement].input_invalid .checkbox__text")).isDisplayed();
-        assertTrue(actual);
+        assertTrue(driver.findElement(By.cssSelector("[data-test-id = agreement].input_invalid")).isDisplayed());
     }
 
 }
